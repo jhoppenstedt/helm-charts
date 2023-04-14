@@ -15,14 +15,15 @@ spec:
     ports:
       traefik:
         expose: false
-    providers:
-      kubernetesCRD:
-        allowCrossNamespace: true
-    entryPoints:
+      web:
+        redirectTo: websecure
       websecure:
         asDefault: true
         tls:
           certResolver: letsencrypt
+    providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
     certResolvers:
       letsencrypt:
         email: {{ .Values.letsencrypt.email }}
